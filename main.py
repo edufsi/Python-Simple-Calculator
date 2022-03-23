@@ -41,12 +41,27 @@ def aplication():
         text = text + str(x)
         contas.set(text)
         
-    
+    def parenteses():
+        global text
+        expressoes = re.findall(r'\(.+\)', text)
+        for expressions in expressoes:
+            str_exp = str(expressions)
+           
+            total = eval(str_exp)
+            text = re.sub(r'\(.+\)', '', text)
+            text = text + str(total)
+            
+        
+        
+        
         
     def igual_a():
         global text
         try:
             text = re.sub(r'x', '*', text)
+            parenteses()
+          
+            
             total = eval(text)
             text = str(total)
             contas.set(total)
@@ -101,7 +116,12 @@ def aplication():
 
     igual = Button(frame_2, text='=', command=lambda: igual_a())
     igual.place(relx=0.74, rely=0.43, relwidth=0.15, relheight=0.15)
-
+    
+    abre_parenteses = Button(frame_2, text='(', command=lambda: apertar_botao('('))
+    abre_parenteses.place(relx= 0.1, rely=0.59, relwidth= 0.15, relheight= 0.15)
+    
+    fecha_parenteses = Button(frame_2, text=')', command=lambda: apertar_botao(')'))
+    fecha_parenteses.place(relx= 0.26, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
 
 
