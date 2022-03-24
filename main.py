@@ -15,7 +15,7 @@ def aplication():
     raiz.minsize(width=500, height=300)
     
     contas = StringVar()
-    label = Label(raiz, textvariable=contas) # bd = borda, bg = background,
+    label = Label(raiz, textvariable=contas, highlightthickness=3, highlightbackground='black', highlightcolor='black') # bd = borda, bg = background,
     # highlightbackground = cor da borda do frame
     # highlightickness = tamanho da borda
     # place, pack, grid
@@ -27,7 +27,7 @@ def aplication():
     # numeros de 0 a 1- 0 é totalmente à esquerda e 1 à direita
     
     
-    frame_2 = Frame(raiz)
+    frame_2 = Frame(raiz, highlightthickness=3, highlightbackground='black', highlightcolor='black')
     frame_2.place(relx=0.2, rely=0.3, relwidth=0.6, relheight=0.6)
     
     def backspace():
