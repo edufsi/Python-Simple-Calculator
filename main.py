@@ -1,7 +1,3 @@
-
-
-
-
 from tkinter import *
 
 import re
@@ -35,7 +31,16 @@ def aplication():
     frame_2 = Frame(raiz)
     frame_2.place(relx=0.2, rely=0.3, relwidth=0.6, relheight=0.6)
     
-    
+    def backspace():
+        try:
+            global text
+            text = list(text)
+            text.pop()
+            ''.join(text)
+            text = re.sub(r'[\[\]\'\, ]', '', str(text))
+            contas.set(text)
+        except IndexError:
+            pass
     def apertar_botao(x):
         global text
         text = text + str(x)
@@ -46,7 +51,6 @@ def aplication():
         expressoes = re.findall(r'\(.+\)', text)
         for expressions in expressoes:
             str_exp = str(expressions)
-           
             total = eval(str_exp)
             text = re.sub(r'\(.+\)', '', text)
             text = text + str(total)
@@ -58,7 +62,8 @@ def aplication():
     def igual_a():
         global text
         try:
-            text = re.sub(r'x', '*', text)
+            text = text.replace('x', '*')
+            text = text.replace('^', '**')
             parenteses()
           
             
@@ -68,8 +73,12 @@ def aplication():
         except SyntaxError:
             text = ''
             contas.set('Erro Aritmético')
-        
-        
+            
+    
+    def clear_all():
+        global text
+        text = ''
+        contas.set(text) 
 
     botao_0 = Button(frame_2, text= '0', command=lambda: apertar_botao(0))
     botao_0.place(relx=0.1, rely=0.1, relwidth=0.15,relheight=0.15)
@@ -122,11 +131,15 @@ def aplication():
     
     fecha_parenteses = Button(frame_2, text=')', command=lambda: apertar_botao(')'))
     fecha_parenteses.place(relx= 0.26, rely=0.59, relwidth= 0.15, relheight= 0.15)
+    
+    exponenciacao = Button(frame_2, text= '^', command=lambda: apertar_botao('^'))
+    exponenciacao.place(relx= 0.42, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
+    backsplace= Button(frame_2, text= 'Back', command= lambda: backspace())
+    backsplace.place(relx= 0.58, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
-
-
-
+    clear = Button(frame_2, text= 'C', command= lambda: clear_all())
+    clear.place(relx= 0.74, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
     raiz.mainloop()
 
