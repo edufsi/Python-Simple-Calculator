@@ -1,5 +1,4 @@
 from tkinter import *
-
 import re
 
 
@@ -40,7 +39,12 @@ def aplication():
             text = re.sub(r'[\[\]\'\, ]', '', str(text))
             contas.set(text)
         except IndexError:
-            pass
+            text = ''
+           
+        
+       
+            
+        
     def apertar_botao(x):
         global text
         text = text + str(x)
@@ -138,7 +142,7 @@ def aplication():
     backsplace= Button(frame_2, text= 'Back', command= lambda: backspace())
     backsplace.place(relx= 0.58, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
-    clear = Button(frame_2, text= 'C', command= lambda: clear_all())
+    clear = Button(frame_2, text= 'C', command= lambda: clear_all(), background='#e83000', activebackground='#393d66')
     clear.place(relx= 0.74, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
     raiz.mainloop()
