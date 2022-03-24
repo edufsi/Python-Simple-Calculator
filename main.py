@@ -8,7 +8,7 @@ def aplication():
     
     raiz = Tk()
     raiz.title('Calculadora')
-    raiz.configure(background='blue') # para uma cor mais específica ver código hexadecimal
+    raiz.configure(background='#4040a1') 
     raiz.geometry('700x600')
     raiz.resizable(True, True)
     raiz.maxsize(width=900, height=700)
@@ -88,62 +88,62 @@ def aplication():
         text = ''
         contas.set(text) 
 
-    exponenciacao = Button(frame_2, text= '^', command=lambda: apertar_botao('^'))
-    exponenciacao.place(relx=0.1, rely=0.1, relwidth=0.15,relheight=0.15)
+    divisao = Button(frame_2, text= '/', command=lambda: apertar_botao('/'), background='#82b74b')
+    divisao.place(relx=0.1, rely=0.1, relwidth=0.15,relheight=0.15)
 
-    botao_1 = Button(frame_2, text='1', command=lambda: apertar_botao(1))
+    botao_1 = Button(frame_2, text='1', command=lambda: apertar_botao(1), background='#a2b9bc')
     botao_1.place(relx=0.26, rely=0.1, relwidth=0.15, relheight=0.15)
 
-    botao_2 = Button(frame_2, text='2',  command=lambda: apertar_botao(2))
+    botao_2 = Button(frame_2, text='2',  command=lambda: apertar_botao(2), background='#a2b9bc')
     botao_2.place(relx=0.42, rely=0.1, relwidth=0.15, relheight=0.15)
 
-    botao_3 = Button(frame_2, text='3',  command=lambda: apertar_botao(3))
+    botao_3 = Button(frame_2, text='3',  command=lambda: apertar_botao(3), background='#a2b9bc')
     botao_3.place(relx=0.58, rely=0.1, relwidth=0.15, relheight=0.15)
 
-    mais = Button(frame_2, text='+', command=lambda: apertar_botao('+'))
+    mais = Button(frame_2, text='+', command=lambda: apertar_botao('+'), background='#82b74b')
     mais.place(relx=0.74, rely=0.1, relwidth=0.15, relheight=0.15)
 
 
-    botao_vezes = Button(frame_2, text='x', command=lambda: apertar_botao('x'))
+    botao_vezes = Button(frame_2, text='x', command=lambda: apertar_botao('x'), background='#82b74b')
     botao_vezes.place(relx=0.1, rely=0.27, relwidth=0.15, relheight=0.15)
 
-    botao_4 = Button(frame_2, text='4',  command=lambda: apertar_botao(4))
+    botao_4 = Button(frame_2, text='4',  command=lambda: apertar_botao(4), background='#a2b9bc')
     botao_4.place(relx=0.26, rely=0.27, relwidth=0.15, relheight=0.15)
 
-    botao_5 = Button(frame_2, text='5', command=lambda: apertar_botao(5))
+    botao_5 = Button(frame_2, text='5', command=lambda: apertar_botao(5), background='#a2b9bc')
     botao_5.place(relx=0.42, rely=0.27, relwidth=0.15, relheight=0.15)
 
-    botao_6 = Button(frame_2, text='6',  command=lambda: apertar_botao(6))
+    botao_6 = Button(frame_2, text='6',  command=lambda: apertar_botao(6), background='#a2b9bc')
     botao_6.place(relx=0.58, rely=0.27, relwidth=0.15, relheight=0.15)
 
-    menos = Button(frame_2, text='-', command=lambda: apertar_botao('-'))
+    menos = Button(frame_2, text='-', command=lambda: apertar_botao('-'), background='#82b74b')
     menos.place(relx=0.74, rely=0.27, relwidth=0.15, relheight=0.15)
 
-    divisão = Button(frame_2, text='/', command= lambda: apertar_botao('/'))
-    divisão.place(relx=0.1, rely=0.43, relwidth=0.15, relheight=0.15)
+    exponenciacao = Button(frame_2, text='^', command= lambda: apertar_botao('^'), background='#82b74b')
+    exponenciacao.place(relx=0.1, rely=0.43, relwidth=0.15, relheight=0.15)
 
-    botao_7 = Button(frame_2, text='7',  command=lambda: apertar_botao(7))
+    botao_7 = Button(frame_2, text='7',  command=lambda: apertar_botao(7), background='#a2b9bc')
     botao_7.place(relx=0.26, rely=0.43, relwidth=0.15, relheight=0.15)
 
-    botao_8 = Button(frame_2, text='8',  command=lambda: apertar_botao(8))
+    botao_8 = Button(frame_2, text='8',  command=lambda: apertar_botao(8), background='#a2b9bc')
     botao_8.place(relx=0.42, rely=0.43, relwidth=0.15, relheight=0.15)
 
-    botao_9 = Button(frame_2, text='9',  command=lambda: apertar_botao(9))
+    botao_9 = Button(frame_2, text='9',  command=lambda: apertar_botao(9), background='#a2b9bc')
     botao_9.place(relx=0.58, rely=0.43, relwidth=0.15, relheight=0.15)
 
-    igual = Button(frame_2, text='=', command=lambda: igual_a())
+    igual = Button(frame_2, text='=', command=lambda: igual_a(), background='#82b74b')
     igual.place(relx=0.74, rely=0.43, relwidth=0.15, relheight=0.15)
     
-    abre_parenteses = Button(frame_2, text='(', command=lambda: apertar_botao('('))
+    abre_parenteses = Button(frame_2, text='(', command=lambda: apertar_botao('('), background='#82b74b')
     abre_parenteses.place(relx= 0.1, rely=0.59, relwidth= 0.15, relheight= 0.15)
     
-    fecha_parenteses = Button(frame_2, text=')', command=lambda: apertar_botao(')'))
+    fecha_parenteses = Button(frame_2, text=')', command=lambda: apertar_botao(')'), background='#82b74b')
     fecha_parenteses.place(relx= 0.26, rely=0.59, relwidth= 0.15, relheight= 0.15)
     
-    botao_0 = Button(frame_2, text= '0', command=lambda: apertar_botao('0'))
+    botao_0 = Button(frame_2, text= '0', command=lambda: apertar_botao('0'), background='#a2b9bc')
     botao_0.place(relx= 0.42, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
-    backsplace= Button(frame_2, text= 'Back', command= lambda: backspace())
+    backsplace= Button(frame_2, text= 'Back', command= lambda: backspace(), background='#82b74b')
     backsplace.place(relx= 0.58, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
     clear = Button(frame_2, text= 'C', command= lambda: clear_all(), background='#e83000', activebackground='#393d66')
