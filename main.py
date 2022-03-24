@@ -78,14 +78,18 @@ def aplication():
             text = ''
             contas.set('Erro Aritmético')
             
+        except ZeroDivisionError:
+            text = ''
+            contas.set('Erro: divisão por 0')
+            
     
     def clear_all():
         global text
         text = ''
         contas.set(text) 
 
-    botao_0 = Button(frame_2, text= '0', command=lambda: apertar_botao(0))
-    botao_0.place(relx=0.1, rely=0.1, relwidth=0.15,relheight=0.15)
+    exponenciacao = Button(frame_2, text= '^', command=lambda: apertar_botao('^'))
+    exponenciacao.place(relx=0.1, rely=0.1, relwidth=0.15,relheight=0.15)
 
     botao_1 = Button(frame_2, text='1', command=lambda: apertar_botao(1))
     botao_1.place(relx=0.26, rely=0.1, relwidth=0.15, relheight=0.15)
@@ -136,8 +140,8 @@ def aplication():
     fecha_parenteses = Button(frame_2, text=')', command=lambda: apertar_botao(')'))
     fecha_parenteses.place(relx= 0.26, rely=0.59, relwidth= 0.15, relheight= 0.15)
     
-    exponenciacao = Button(frame_2, text= '^', command=lambda: apertar_botao('^'))
-    exponenciacao.place(relx= 0.42, rely=0.59, relwidth= 0.15, relheight= 0.15)
+    botao_0 = Button(frame_2, text= '0', command=lambda: apertar_botao('0'))
+    botao_0.place(relx= 0.42, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
     backsplace= Button(frame_2, text= 'Back', command= lambda: backspace())
     backsplace.place(relx= 0.58, rely=0.59, relwidth= 0.15, relheight= 0.15)
