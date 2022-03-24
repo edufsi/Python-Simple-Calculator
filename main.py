@@ -1,8 +1,11 @@
+
 from tkinter import *
 import re
 
 
+
 text = ''
+equ = False
 
 def aplication():
     
@@ -65,28 +68,56 @@ def aplication():
         
     def igual_a():
         global text
-        try:
-            text = text.replace('x', '*')
-            text = text.replace('^', '**')
-            parenteses()
-          
+        global equacao
+        if equacao:
+            pass
+        
+        else:
+            try:
+                text = text.replace('x', '*')
+                text = text.replace('^', '**')
+                parenteses()
+
             
-            total = eval(text)
-            text = str(total)
-            contas.set(total)
-        except SyntaxError:
-            text = ''
-            contas.set('Erro Aritmético')
+                total = eval(text)
+                text = str(total)
+                contas.set(total)
+            except SyntaxError:
+                text = ''
+                contas.set('Erro Aritmético')
             
-        except ZeroDivisionError:
-            text = ''
-            contas.set('Erro: divisão por 0')
+            except ZeroDivisionError:
+                text = ''
+                contas.set('Erro: divisão por 0')
             
     
     def clear_all():
         global text
         text = ''
         contas.set(text) 
+        
+    
+    def set_to_equation(pressed_button, other_button):
+        global equ
+        equ = True
+        pressed_button.config(relief=SUNKEN)
+        other_button.config(relief=RAISED)
+        
+    def set_to_expression(pressed_button, other_button):
+        global equ
+        equ= False
+        pressed_button.config(relief=SUNKEN)
+        other_button.config(relief=RAISED)
+        
+        
+    def button_state(button):
+        global equ
+        if not equ:
+            button.config(relief=SUNKEN)
+        else:
+            button.config(state=DISABLED)
+            button.config(relief=SUNKEN)
+        
 
     divisao = Button(frame_2, text= '/', command=lambda: apertar_botao('/'), background='#82b74b')
     divisao.place(relx=0.1, rely=0.1, relwidth=0.15,relheight=0.15)
@@ -149,6 +180,16 @@ def aplication():
     clear = Button(frame_2, text= 'C', command= lambda: clear_all(), background='#e83000', activebackground='#393d66')
     clear.place(relx= 0.74, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
+    variavel = Button(frame_2, text= 'y', command= lambda: apertar_botao('y'))
+    variavel.place(relx= 0.42, rely=0.75, relwidth=0.15, relheight=0.15)
+    
+    equacao = Button(frame_2, text= 'Equação', command= lambda: set_to_equation(equacao, exp))
+    equacao.place(relx=0.26, rely=0.75, relwidth=0.15, relheight=0.15)
+    
+    exp = Button(frame_2, text= 'Expressão', command= lambda: set_to_expression(exp, equacao))
+    exp.place(relx=0.58, rely=0.75, relwidth=0.15, relheight=0.15)
+    
+    
     raiz.mainloop()
 
 if __name__ == '__main__':
