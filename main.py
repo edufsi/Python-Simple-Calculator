@@ -110,13 +110,15 @@ def aplication():
         other_button.config(relief=RAISED)
         
         
-    def button_state(button):
+    def colocar_variavel():
         global equ
-        if not equ:
-            button.config(relief=SUNKEN)
+        global text
+        if equ:
+            text = text + 'y'
+            contas.set(text)
         else:
-            button.config(state=DISABLED)
-            button.config(relief=SUNKEN)
+            pass
+        
         
 
     divisao = Button(frame_2, text= '/', command=lambda: apertar_botao('/'), background='#82b74b')
@@ -180,7 +182,7 @@ def aplication():
     clear = Button(frame_2, text= 'C', command= lambda: clear_all(), background='#e83000', activebackground='#393d66')
     clear.place(relx= 0.74, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
-    variavel = Button(frame_2, text= 'y', command= lambda: apertar_botao('y'))
+    variavel = Button(frame_2, text= 'y', command= lambda: colocar_variavel())
     variavel.place(relx= 0.42, rely=0.75, relwidth=0.15, relheight=0.15)
     
     equacao = Button(frame_2, text= 'Equação', command= lambda: set_to_equation(equacao, exp))
