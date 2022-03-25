@@ -129,8 +129,10 @@ def aplication():
         
     
     def solve_equation():
-        pass
+        global text
+        equation = re.findall(r'(?:\d*\.?\d*y?(?=[^y\d])[\^\+\-/x]?)*=(?:\d*\.?\d*y?[\^\+\-/x]?)+', text)
         
+        print(equation)
     
         
 
