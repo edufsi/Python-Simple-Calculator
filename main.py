@@ -132,15 +132,18 @@ def aplication():
         global text
         equation = re.findall(r'(?:\d*\.?\d*y?(?=[^y\d])[\^\+\-/x]?)+(?<![=])=(?![=])(?:\d*\.?\d*y?[\^\+\-/x]?)+', text)
         if equation:
-            lado_esquerdo = re.findall(r'(.+)=', text)
-            lado_direito = re.findall(r'=(.+)', text)
+            lado_esquerdo = str(''.join(re.findall(r'(.+)=', text)))
+            lado_direito = str(''.join(re.findall(r'=(.+)', text)))
             print(equation)
             print(lado_esquerdo)
             print(lado_direito)
+            lado_esquerdo_valores = re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_esquerdo)
+            lado_direitro_valores = re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_direito)
+            print(lado_esquerdo_values)
         else:
             text = ''
             contas.set('Equação inválida')
-    
+
         
 
     divisao = Button(frame_2, text= '/', command=lambda: apertar_botao('/'), background='#82b74b')
