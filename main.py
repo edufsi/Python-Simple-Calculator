@@ -18,16 +18,9 @@ def aplication():
     raiz.minsize(width=500, height=300)
     
     contas = StringVar()
-    label = Label(raiz, textvariable=contas, highlightthickness=3, highlightbackground='black', highlightcolor='black') # bd = borda, bg = background,
-    # highlightbackground = cor da borda do frame
-    # highlightickness = tamanho da borda
-    # place, pack, grid
-    # pack é mais fácil de usar, mas não permite posicionamento específico
-    # grid transforma a tela em várias linhas e colunas, permitindo posicionamento mais específico
-    # place (trabalhando com x e y)
+    label = Label(raiz, textvariable=contas, highlightthickness=3, highlightbackground='black', highlightcolor='black') # bd = borda, 
     
-    label.place(relx=0.2, rely=0.05, relwidth=0.6, relheight=0.20) # parâmetros aceitam
-    # numeros de 0 a 1- 0 é totalmente à esquerda e 1 à direita
+    label.place(relx=0.2, rely=0.05, relwidth=0.6, relheight=0.20) 
     
     
     frame_2 = Frame(raiz, highlightthickness=3, highlightbackground='black', highlightcolor='black')
@@ -68,12 +61,14 @@ def aplication():
         
     def igual_a():
         global text
-        global equacao
-        if equacao:
-            pass
+        global equ
+        if equ:
+            text = text + str('=')
+            contas.set(text)
         
         else:
             try:
+                text= text.replace(',', '.')
                 text = text.replace('x', '*')
                 text = text.replace('^', '**')
                 parenteses()
@@ -81,7 +76,8 @@ def aplication():
             
                 total = eval(text)
                 text = str(total)
-                contas.set(total)
+                text = text.replace('.', ',')
+                contas.set(text)
             except SyntaxError:
                 text = ''
                 contas.set('Erro Aritmético')
@@ -97,17 +93,29 @@ def aplication():
         contas.set(text) 
         
     
-    def set_to_equation(pressed_button, other_button):
+    def set_to_equation(pressed_button, raised_button=None, disabled_buttons=None):
         global equ
         equ = True
-        pressed_button.config(relief=SUNKEN)
-        other_button.config(relief=RAISED)
         
-    def set_to_expression(pressed_button, other_button):
+        pressed_button.config(relief=SUNKEN)
+        
+        raised_button.config(relief=RAISED)
+        if disabled_buttons is not None:
+            for button in disabled_buttons:
+                button.config(state=ACTIVE)
+            
+           
+    def set_to_expression(pressed_button, raised_button=None, disabled_buttons=None):
         global equ
         equ= False
+       
         pressed_button.config(relief=SUNKEN)
-        other_button.config(relief=RAISED)
+        
+        raised_button.config(relief=RAISED)
+        if disabled_buttons is not None:
+            for button in disabled_buttons: 
+                button.config(state=DISABLED)
+        
         
         
     def colocar_variavel():
@@ -119,6 +127,11 @@ def aplication():
         else:
             pass
         
+    
+    def solve_equation():
+        pass
+        
+    
         
 
     divisao = Button(frame_2, text= '/', command=lambda: apertar_botao('/'), background='#82b74b')
@@ -185,11 +198,18 @@ def aplication():
     variavel = Button(frame_2, text= 'y', command= lambda: colocar_variavel())
     variavel.place(relx= 0.42, rely=0.75, relwidth=0.15, relheight=0.15)
     
-    equacao = Button(frame_2, text= 'Equação', command= lambda: set_to_equation(equacao, exp))
+    equacao = Button(frame_2, text= 'Equação', command= lambda: set_to_equation(equacao, exp, [solve, variavel]))
     equacao.place(relx=0.26, rely=0.75, relwidth=0.15, relheight=0.15)
     
-    exp = Button(frame_2, text= 'Expressão', command= lambda: set_to_expression(exp, equacao))
+    exp = Button(frame_2, text= 'Expressão', command= lambda: set_to_expression(exp, equacao, [solve, variavel]))
     exp.place(relx=0.58, rely=0.75, relwidth=0.15, relheight=0.15)
+    
+    solve = Button(frame_2, text= 'Solve', command= lambda: solve_equation())
+    solve.place(relx = 0.74, rely= 0.75, relheight= 0.15, relwidth= 0.15)
+    
+    dot = Button(frame_2, text=',', command= lambda: apertar_botao(','))
+    dot.place(relx= 0.1, rely= 0.75, relheight=0.15, relwidth=0.15)
+    
     
     
     raiz.mainloop()
