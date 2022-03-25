@@ -1,2 +1,2 @@
 # Calculadora Simples Em Python
-Calculadora simples com interface gráfica feita com a biblioteca tkinter
+Estou desenvolvendo uma calculadora simples com interface gráfica com a biblioteca tkinter
