@@ -1,6 +1,7 @@
 
 from tkinter import *
 import re
+from xml.sax.handler import all_properties
 
 
 
@@ -137,9 +138,10 @@ def aplication():
             print(equation)
             print(lado_esquerdo)
             print(lado_direito)
-            lado_esquerdo_valores = re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_esquerdo)
-            lado_direitro_valores = re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_direito)
-            print(lado_esquerdo_values)
+            lado_esquerdo_valores = re.findall(r'[+\-/x^]*\d*\.?\d*y?', lado_esquerdo)
+            lado_direito_valores = re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_direito)
+            print(lado_esquerdo_valores)
+            print(lado_direito_valores)
         else:
             text = ''
             contas.set('Equação inválida')
