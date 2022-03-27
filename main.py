@@ -147,8 +147,19 @@ def aplication():
                 if 'y' in value:
                     variaveis.append(value)
             for value in variaveis:
-                if 
-            lado_esquerdo_valores.append(eval(value) * -1))
+                if re.match(r'\d', str(value)):
+                    variavel = re.findall(r'y(?:^\d.?\d*)?', value)
+                    print(variavel)
+                    value = re.sub(r'y(^\d.?\d*)?', '', value)
+                    print(value)
+                    if 'x' in value or '/' in value:
+                        coeficiente = re.sub(r'[x/]', 'x' if '/' in value else '/', value)
+                    else: 
+                        coeficiente = float(value) * -1
+                    
+                    lado_esquerdo_valores.append(str(coeficiente) + str(''.join(variavel)))
+                    print(lado_esquerdo_valores)
+            
         else:
             text = ''
             contas.set('Equação inválida')
