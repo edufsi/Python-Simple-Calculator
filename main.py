@@ -130,6 +130,7 @@ def aplication():
         
     
     def solve_equation():
+        variaveis = []
         global text
         equation = re.findall(r'(?:\d*\.?\d*y?(?=[^y\d])[\^\+\-/x]?)+(?<![=])=(?![=])(?:\d*\.?\d*y?[\^\+\-/x]?)+', text)
         if equation:
@@ -142,6 +143,12 @@ def aplication():
             lado_direito_valores = re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_direito)
             print(lado_esquerdo_valores)
             print(lado_direito_valores)
+            for value in lado_direito_valores:
+                if 'y' in value:
+                    variaveis.append(value)
+            for value in variaveis:
+                if 
+            lado_esquerdo_valores.append(eval(value) * -1))
         else:
             text = ''
             contas.set('Equação inválida')
