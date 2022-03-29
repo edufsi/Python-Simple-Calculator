@@ -221,10 +221,10 @@ def aplication():
     variavel.place(relx= 0.42, rely=0.75, relwidth=0.15, relheight=0.15)
     variavel.config(state=DISABLED)
     
-    equacao = Button(frame_2, text= 'Equação', command= lambda: set_to_equation(equacao, exp, [solve, variavel]))
+    equacao = Button(frame_2, text= 'Equação', command= lambda: set_to_equation(equacao, exp, [solve, variavel]), background='#cccc99')
     equacao.place(relx=0.26, rely=0.75, relwidth=0.15, relheight=0.15)
     
-    exp = Button(frame_2, text= 'Expressão', command= lambda: set_to_expression(exp, equacao, [solve, variavel]))
+    exp = Button(frame_2, text= 'Expressão', command= lambda: set_to_expression(exp, equacao, [solve, variavel]), background='#cccc99')
     exp.place(relx=0.58, rely=0.75, relwidth=0.15, relheight=0.15)
     exp.config(relief=SUNKEN)
     
