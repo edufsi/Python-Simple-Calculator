@@ -215,7 +215,7 @@ def aplication():
     back_space.place(relx= 0.58, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
     clear = Button(frame_2, text= 'C', command= lambda: clear_all(), background='#e83000', activebackground='#393d66')
-    clear.place(relx= 0.74, rely=0.59, relwidth= 0.15, relheight= 0.15)
+    clear.place(relx= 0.1, rely=0.75, relwidth= 0.15, relheight= 0.15) 
 
     variavel = Button(frame_2, text= 'y', command= lambda: colocar_variavel())
     variavel.place(relx= 0.42, rely=0.75, relwidth=0.15, relheight=0.15)
@@ -232,8 +232,8 @@ def aplication():
     solve.place(relx = 0.74, rely= 0.75, relheight= 0.15, relwidth= 0.15)
     solve.config(state=DISABLED)
     
-    dot = Button(frame_2, text=',', command= lambda: apertar_botao(','))
-    dot.place(relx= 0.1, rely= 0.75, relheight=0.15, relwidth=0.15)
+    dot = Button(frame_2, text=',', command= lambda: apertar_botao(','), background='#82b74b')
+    dot.place(relx= 0.74, rely= 0.59, relheight=0.15, relwidth=0.15)
     
     
     
