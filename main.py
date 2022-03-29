@@ -139,18 +139,20 @@ def aplication():
             print(equation)
             print(lado_esquerdo)
             print(lado_direito)
-            lado_esquerdo_valores = re.findall(r'[+\-/x^]*\d*\.?\d*y?', lado_esquerdo)
-            lado_direito_valores = re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_direito)
+            lado_esquerdo_valores = [x for x in  re.findall(r'[+\-/x^]*\d*\.?\d*y?', lado_esquerdo) if x]
+            lado_direito_valores = [x for x in re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_direito) if x]
             print(lado_esquerdo_valores)
             print(lado_direito_valores)
             for value in lado_direito_valores:
                 if 'y' in value:
                     variaveis.append(value)
+                    lado_direito_valores.remove(value)
+                    print(lado_direito_valores)
             for value in variaveis:
                 if re.match(r'\d', str(value)):
                     variavel = re.findall(r'y(?:^\d.?\d*)?', value)
                     print(variavel)
-                    value = re.sub(r'y(^\d.?\d*)?', '', value)
+                    value = re.sub(r'y(?:^\d.?\d*)?', '', value)
                     print(value)
                     if 'x' in value or '/' in value:
                         coeficiente = re.sub(r'[x/]', 'x' if '/' in value else '/', value)
@@ -158,8 +160,9 @@ def aplication():
                         coeficiente = float(value) * -1
                     
                     lado_esquerdo_valores.append(str(coeficiente) + str(''.join(variavel)))
-                    print(lado_esquerdo_valores)
-            
+                 
+            print(lado_direito_valores)
+            print(lado_esquerdo_valores)
         else:
             text = ''
             contas.set('Equação inválida')
@@ -208,23 +211,26 @@ def aplication():
     botao_0 = Button(frame_2, text= '0', command=lambda: apertar_botao('0'), background='#a2b9bc')
     botao_0.place(relx= 0.42, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
-    backsplace= Button(frame_2, text= 'Back', command= lambda: backspace(), background='#82b74b')
-    backsplace.place(relx= 0.58, rely=0.59, relwidth= 0.15, relheight= 0.15)
+    back_space= Button(frame_2, text= 'Back', command= lambda: backspace(), background='#82b74b')
+    back_space.place(relx= 0.58, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
     clear = Button(frame_2, text= 'C', command= lambda: clear_all(), background='#e83000', activebackground='#393d66')
     clear.place(relx= 0.74, rely=0.59, relwidth= 0.15, relheight= 0.15)
 
     variavel = Button(frame_2, text= 'y', command= lambda: colocar_variavel())
     variavel.place(relx= 0.42, rely=0.75, relwidth=0.15, relheight=0.15)
+    variavel.config(state=DISABLED)
     
     equacao = Button(frame_2, text= 'Equação', command= lambda: set_to_equation(equacao, exp, [solve, variavel]))
     equacao.place(relx=0.26, rely=0.75, relwidth=0.15, relheight=0.15)
     
     exp = Button(frame_2, text= 'Expressão', command= lambda: set_to_expression(exp, equacao, [solve, variavel]))
     exp.place(relx=0.58, rely=0.75, relwidth=0.15, relheight=0.15)
+    exp.config(relief=SUNKEN)
     
     solve = Button(frame_2, text= 'Solve', command= lambda: solve_equation())
     solve.place(relx = 0.74, rely= 0.75, relheight= 0.15, relwidth= 0.15)
+    solve.config(state=DISABLED)
     
     dot = Button(frame_2, text=',', command= lambda: apertar_botao(','))
     dot.place(relx= 0.1, rely= 0.75, relheight=0.15, relwidth=0.15)
