@@ -136,33 +136,40 @@ def aplication():
         if equation:
             lado_esquerdo = str(''.join(re.findall(r'(.+)=', text)))
             lado_direito = str(''.join(re.findall(r'=(.+)', text)))
-            print(equation)
-            print(lado_esquerdo)
-            print(lado_direito)
-            lado_esquerdo_valores = [x for x in  re.findall(r'[+\-/x^]*\d*\.?\d*y?', lado_esquerdo) if x]
-            lado_direito_valores = [x for x in re.findall(r'[+\-/x]*\d*\.?\d*y?', lado_direito) if x]
+            
+            lado_esquerdo_valores = [x for x in  re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_esquerdo) if x]
             print(lado_esquerdo_valores)
-            print(lado_direito_valores)
+            lado_direito_valores = [x for x in re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_direito) if x]
+            
             for value in lado_direito_valores:
                 if 'y' in value:
                     variaveis.append(value)
                     lado_direito_valores.remove(value)
-                    print(lado_direito_valores)
+               
             for value in variaveis:
                 if re.match(r'\d', str(value)):
                     variavel = re.findall(r'y(?:^\d.?\d*)?', value)
-                    print(variavel)
+               
                     value = re.sub(r'y(?:^\d.?\d*)?', '', value)
-                    print(value)
+                  
                     if 'x' in value or '/' in value:
                         coeficiente = re.sub(r'[x/]', 'x' if '/' in value else '/', value)
                     else: 
                         coeficiente = float(value) * -1
                     
                     lado_esquerdo_valores.append(str(coeficiente) + str(''.join(variavel)))
-                 
+                    
             print(lado_direito_valores)
             print(lado_esquerdo_valores)
+            
+            if lado_direito_valores:
+                
+                lado_direito = eval(''.join(lado_direito_valores))
+            else:
+                lado_direito = 0
+                
+            print(lado_direito)
+        
         else:
             text = ''
             contas.set('Equação inválida')
