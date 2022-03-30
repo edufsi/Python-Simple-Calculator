@@ -146,6 +146,8 @@ def aplication():
                 if 'y' in value:
                     variaveis.append(value)
                     lado_direito_valores.remove(value)
+                
+              
               
            
                     
@@ -172,37 +174,36 @@ def aplication():
                 lado_direito = eval(''.join(lado_direito_valores))
             else:
                 lado_direito = 0
-                
-            
-            for value in numeros:
-                if 'x' in value or '/' in value:
-                    numero = re.sub(r'[/x]', '/' if 'x' in value else 'x', value)
-                  
-                else:
-                    numero *= -1
-                    
-                lado_direito_valores.append(numero)
             print(lado_direito)
+            lado_esquerdo_valores.append(str(lado_direito * -1))
             
-            if not '^' in ''.join(lado_esquerdo_valores):
-                numeros_com_y = []
-                numeros = []
-                for value in lado_esquerdo_valores:
+          
+            print(lado_esquerdo_valores)
+            
+            numeros_com_y = []
+            numeros = []
+            for value in lado_esquerdo_valores:
+            
+                if not '^' in value:
+                   
                     if 'y' in value:
                         numeros_com_y.append(re.sub(r'y', '', value))
+                        
                     else:
                         numeros.append(value)
             
-           
-                
-                numeros = eval(''.join(numeros))
-                lado_direito += numeros
-                numeros_com_y = eval(''.join(numeros_com_y))
-                print(numeros_com_y)
-                print(lado_direito)
+
             
-            else:
-                pass
+                else:
+                    pass
+                
+            print(numeros_com_y)
+            print(numeros)
+            numeros = eval(''.join(numeros))
+            lado_direito = numeros
+            lado_esquerdo = eval(''.join(numeros_com_y))
+            print(lado_esquerdo)
+            print(lado_direito)
         
         else:
             text = ''
