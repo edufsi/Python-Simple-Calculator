@@ -19,7 +19,7 @@ def aplication():
     raiz.minsize(width=500, height=300)
     
     contas = StringVar()
-    label = Label(raiz, textvariable=contas, highlightthickness=3, highlightbackground='black', highlightcolor='black') # bd = borda, 
+    label = Label(raiz, textvariable=contas, highlightthickness=3, highlightbackground='black', highlightcolor='black') 
     
     label.place(relx=0.2, rely=0.05, relwidth=0.6, relheight=0.20) 
     
@@ -131,6 +131,7 @@ def aplication():
     
     def solve_equation():
         variaveis = []
+        numeros = []
         global text
         equation = re.findall(r'(?:\d*\.?\d*y?(?=[^y\d])[\^\+\-/x]?)+(?<![=])=(?![=])(?:\d*\.?\d*y?[\^\+\-/x]?)+', text)
         if equation:
@@ -138,14 +139,16 @@ def aplication():
             lado_direito = str(''.join(re.findall(r'=(.+)', text)))
             
             lado_esquerdo_valores = [x for x in  re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_esquerdo) if x]
-            print(lado_esquerdo_valores)
-            lado_direito_valores = [x for x in re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_direito) if x]
             
+            lado_direito_valores = [x for x in re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_direito) if x]
+            print(lado_direito_valores)
             for value in lado_direito_valores:
                 if 'y' in value:
                     variaveis.append(value)
                     lado_direito_valores.remove(value)
-               
+              
+            print(numeros)
+                    
             for value in variaveis:
                 if re.match(r'\d', str(value)):
                     variavel = re.findall(r'y(?:^\d.?\d*)?', value)
@@ -158,8 +161,10 @@ def aplication():
                         coeficiente = float(value) * -1
                     
                     lado_esquerdo_valores.append(str(coeficiente) + str(''.join(variavel)))
-                    
+            
+            
             print(lado_direito_valores)
+            
             print(lado_esquerdo_valores)
             
             if lado_direito_valores:
@@ -169,6 +174,19 @@ def aplication():
                 lado_direito = 0
                 
             print(lado_direito)
+            
+            if not '^' in ''.join(lado_esquerdo_valores):
+                numeros_com_y = []
+                numeros = []
+                for value in lado_esquerdo_valores:
+                    if 'y' in value:
+                        numeros_com_y.append(re.sub(r'y', '', value))
+                    else:
+                        numeros.append(value)
+                numeros = eval(''.join(numeros))
+                numeros_com_y = eval(''.join(numeros_com_y))
+                print(numeros_com_y)
+                print(numeros)
         
         else:
             text = ''
