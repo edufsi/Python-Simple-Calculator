@@ -10,7 +10,7 @@ equ = False
 
 def aplication():
     
-    raiz = Tk()
+    raiz = Tk() 
     raiz.title('Calculadora')
     raiz.configure(background='#4040a1') 
     raiz.geometry('700x600')
@@ -138,11 +138,14 @@ def aplication():
             lado_esquerdo = str(''.join(re.findall(r'(.+)=', text)))
             lado_direito = str(''.join(re.findall(r'=(.+)', text)))
             
-            lado_esquerdo_valores = [x for x in  re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_esquerdo) if x]
+            #ARRUMAR ERRO: OS VALORES COM / OU * DEVEM SER TRATADOS COMO UM
+            lado_esquerdo_valores = [x for x in  re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_esquerdo) if x] #guarda numa lista todos os valores do lado esquerdo da equação
             
-            lado_direito_valores = [x for x in re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_direito) if x]
-            print(lado_direito_valores)
-            for value in lado_direito_valores:
+            lado_direito_valores = [x for x in re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_direito) if x] #guarda numa lista todos os valores do lado direito da equação
+           
+            
+            #ISOLANDO AS VARIÁVEIS NO LADO ESQUERDO
+            for value in lado_direito_valores: #Para cada valor no lado direito, se tiver y, vamos guardá-lo e tirá-lo do lado direito
                 if 'y' in value:
                     variaveis.append(value)
                     lado_direito_valores.remove(value)
@@ -150,8 +153,7 @@ def aplication():
               
               
            
-                    
-            for value in variaveis:
+            for value in variaveis: #para cada valor separado, separar o coeficiente e parte literal para tratar o coeficiente ao passá-lo para o outro lado (inverter a operação). Depois concatenar novamente os dois no lado esquerdo
                 if re.match(r'\d', str(value)):
                     variavel = re.findall(r'y(?:^\d.?\d*)?', value)
                
@@ -169,7 +171,7 @@ def aplication():
             
             print(lado_esquerdo_valores)
             
-            if lado_direito_valores:
+            if lado_direito_valores: #Se não houver nada sobrando no lado direito, ele é 0, se tiver, será um valor numérico
                 
                 lado_direito = eval(''.join(lado_direito_valores))
             else:
@@ -182,12 +184,12 @@ def aplication():
             
             numeros_com_y = []
             numeros = []
-            for value in lado_esquerdo_valores:
+            for value in lado_esquerdo_valores: #para cada valor no lado esquerdo, separar aqueles sem variável, com variável e com variável elevada a algum número
             
                 if not '^' in value:
                    
                     if 'y' in value:
-                        numeros_com_y.append(re.sub(r'y', '', value))
+                        numeros_com_y.append(re.sub(r'y', '', value)) #queremos os coeficientes para simplificar a equação
                         
                     else:
                         numeros.append(value)
@@ -199,9 +201,9 @@ def aplication():
                 
             print(numeros_com_y)
             print(numeros)
-            numeros = eval(''.join(numeros))
+            numeros = eval(''.join(numeros)) 
             lado_direito = numeros
-            lado_esquerdo = eval(''.join(numeros_com_y))
+            lado_esquerdo = eval(''.join(numeros_com_y)) 
             print(lado_esquerdo)
             print(lado_direito)
         
