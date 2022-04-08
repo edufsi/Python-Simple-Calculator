@@ -147,11 +147,17 @@ def aplication():
             
             lado_direito_valores = [x for x in re.findall(r'[x/]?[+\-]*\d*\.?\d*y?(?:\^?\d+)?', lado_direito) if x] #guarda numa lista todos os valores do lado direito da equação
             
-         
-            
+            print(lado_direito_valores)
+            print(lado_esquerdo_valores)
+            for value in lado_esquerdo_valores:
+                if 'y' in value and not re.match(r'\d', value):
+                    value = list(value)
+                    value.insert(value.index('y'), '1')
+
             #ISOLANDO AS VARIÁVEIS NO LADO ESQUERDO
             for value in lado_direito_valores: #Para cada valor no lado direito, se tiver y, vamos guardá-lo e tirá-lo do lado direito
                 if 'y' in value:
+            
                     variaveis.append(value)
                     lado_direito_valores.remove(value)
                 
@@ -159,40 +165,53 @@ def aplication():
                 
            
             for value in variaveis: #para cada valor separado, separar o coeficiente e parte literal para tratar o coeficiente ao passá-lo para o outro lado (inverter a operação). Depois concatenar novamente os dois no lado esquerdo
-                if re.match(r'\d', str(value)):
-                    variavel = re.findall(r'y(?:^\d.?\d*)?', value)
+                if not re.match(r'\d', str(value)):
+                    value = list(value)
+                    value.insert(value.index('y'), '1')
+                    
+                variavel = re.findall(r'y(?:^\d.?\d*)?', value)
                
-                    value = re.sub(r'y(?:^\d.?\d*)?', '', value)
+                value = re.sub(r'y(?:^\d.?\d*)?', '', value)
                   
-                    if 'x' in value or '/' in value:
+                if 'x' in value or '/' in value:
                         coeficiente = re.sub(r'[x/]', 'x' if '/' in value else '/', value)
-                    else: 
-                        coeficiente = float(value) * -1
+                else: 
+                    coeficiente = float(value) * -1
+
                     
                     lado_esquerdo_valores.append(str(coeficiente) + str(''.join(variavel)))
             
             
             
             
-            #Colocando os números para o lado_direito. 
+            #Resolvendo operaçõese Colocando os números para o lado_direito.
+            termo_independente = []
             for value in lado_esquerdo_valores:
                 if not 'y' in value:
-                    print(lado_esquerdo_valores)
-                    print(value)
-                    lado_esquerdo_valores.remove(value)
-                    if 'x' in value or '/' in value:
-                        value = re.sub(r'[/x]', '/' if 'x' in value else 'x', value)
+                    
+                    if 'x' in value:
+                        lado_esquerdo_valores.remove(value)
+                        value = re.sub(r'x', '*', value)
+                        
+                    termo_independente.append(value)
+                    print(termo_independente)
+
+            termo_independente = str(eval(''.join(termo_independente)))
+            lado_esquerdo_valores.append(termo_independente)
+            print(termo_independente)
+                    #lado_esquerdo_valores.remove(value)
+                    #if 'x' in value or '/' in value:
+                      #  value = re.sub(r'[/x]', '/' if 'x' in value else 'x', value)
                     
             
-                        lado_direito_valores.append(value)
-                    else: 
-                        value = float(value)
-                        value = str(value * -1)
-                        if not '-' in value:
-                            value = '+' + value
-                        lado_direito_valores.append(str(value))
-                        print(lado_esquerdo_valores)
-                        print(lado_direito_valores)
+                       # lado_direito_valores.append(value)
+                    #else: 
+                     #   value = float(value)
+                      #  value = str(value * -1)
+                       # if not '-' in value:
+                        #    value = '+' + value
+                       # lado_direito_valores.append(str(value))
+                       
                    
                     
             print(lado_direito_valores)
