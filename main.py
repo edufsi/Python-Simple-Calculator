@@ -188,13 +188,14 @@ def aplication():
             termo_independente = []
             for value in lado_esquerdo_valores:
                 if not 'y' in value:
-                    
+                    lado_esquerdo_valores.remove(value)
                     if 'x' in value:
-                        lado_esquerdo_valores.remove(value)
+                       
                         value = re.sub(r'x', '*', value)
                         
                     termo_independente.append(value)
                     print(termo_independente)
+                    
 
             termo_independente = str(eval(''.join(termo_independente)))
             lado_esquerdo_valores.append(termo_independente)
