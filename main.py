@@ -133,16 +133,21 @@ def aplication():
         variaveis = []
      
         global text
+        
         equation = re.findall(r'(?:\d*\.?\d*y?(?=[^y\d])[\^\+\-/x]?)+(?<![=])=(?![=])(?:\d*\.?\d*y?[\^\+\-/x]?)+', text)
+        
+
+        
         if equation:
             lado_esquerdo = str(''.join(re.findall(r'(.+)=', text)))
             lado_direito = str(''.join(re.findall(r'=(.+)', text)))
             
-            #ARRUMAR ERRO: OS VALORES COM / OU * DEVEM SER TRATADOS COMO UM
-            lado_esquerdo_valores = [x for x in  re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_esquerdo) if x] #guarda numa lista todos os valores do lado esquerdo da equação
             
-            lado_direito_valores = [x for x in re.findall(r'[+\-/x]*\d*\.?\d*y?(?:\^?\d+)?', lado_direito) if x] #guarda numa lista todos os valores do lado direito da equação
-           
+            lado_esquerdo_valores = [x for x in  re.findall(r'[x/]?[+\-]*\d*\.?\d*y?(?:\^?\d+)?', lado_esquerdo) if x] #guarda numa lista todos os valores do lado esquerdo da equação
+            
+            lado_direito_valores = [x for x in re.findall(r'[x/]?[+\-]*\d*\.?\d*y?(?:\^?\d+)?', lado_direito) if x] #guarda numa lista todos os valores do lado direito da equação
+            
+         
             
             #ISOLANDO AS VARIÁVEIS NO LADO ESQUERDO
             for value in lado_direito_valores: #Para cada valor no lado direito, se tiver y, vamos guardá-lo e tirá-lo do lado direito
@@ -150,8 +155,8 @@ def aplication():
                     variaveis.append(value)
                     lado_direito_valores.remove(value)
                 
-              
-              
+
+                
            
             for value in variaveis: #para cada valor separado, separar o coeficiente e parte literal para tratar o coeficiente ao passá-lo para o outro lado (inverter a operação). Depois concatenar novamente os dois no lado esquerdo
                 if re.match(r'\d', str(value)):
@@ -167,13 +172,34 @@ def aplication():
                     lado_esquerdo_valores.append(str(coeficiente) + str(''.join(variavel)))
             
             
+            
+            
+            #Colocando os números para o lado_direito. 
+            for value in lado_esquerdo_valores:
+                if not 'y' in value:
+                    print(lado_esquerdo_valores)
+                    print(value)
+                    lado_esquerdo_valores.remove(value)
+                    if 'x' in value or '/' in value:
+                        value = re.sub(r'[/x]', '/' if 'x' in value else 'x', value)
+                    
+            
+                        lado_direito_valores.append(value)
+                    else: 
+                        value = float(value)
+                        value = str(value * -1)
+                        if not '-' in value:
+                            value = '+' + value
+                        lado_direito_valores.append(str(value))
+                        print(lado_esquerdo_valores)
+                        print(lado_direito_valores)
+                   
+                    
             print(lado_direito_valores)
-            
-            print(lado_esquerdo_valores)
-            
-            if lado_direito_valores: #Se não houver nada sobrando no lado direito, ele é 0, se tiver, será um valor numérico
+            if lado_direito_valores: #Se não houver nada sobrando no lado direito, ele é 0, se tiver, será um valor numérico. Para calcular o valor numérico do lado_direito é preciso substituir os símbolos colocados para facilitar o entendimento do usuário por operadores.
+                lado_direito = re.sub(r'x', '*', ''.join(lado_direito_valores))
                 
-                lado_direito = eval(''.join(lado_direito_valores))
+                lado_direito = eval(lado_direito)
             else:
                 lado_direito = 0
             print(lado_direito)
@@ -185,7 +211,7 @@ def aplication():
             numeros_com_y = []
             numeros = []
             for value in lado_esquerdo_valores: #para cada valor no lado esquerdo, separar aqueles sem variável, com variável e com variável elevada a algum número
-            
+                
                 if not '^' in value:
                    
                     if 'y' in value:
@@ -201,12 +227,15 @@ def aplication():
                 
             print(numeros_com_y)
             print(numeros)
+          
+                
             numeros = eval(''.join(numeros)) 
-            lado_direito = numeros
+            lado_direito = numeros * -1
             lado_esquerdo = eval(''.join(numeros_com_y)) 
             print(lado_esquerdo)
             print(lado_direito)
-        
+            y = lado_direito / lado_esquerdo
+            contas.set(y)
         else:
             text = ''
             contas.set('Equação inválida')
