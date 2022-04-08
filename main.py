@@ -149,11 +149,11 @@ def aplication():
             
             print(lado_direito_valores)
             print(lado_esquerdo_valores)
-            for value in lado_esquerdo_valores:
-                if 'y' in value and not re.match(r'\d', value):
+            for i, value in enumerate(lado_esquerdo_valores):
+                if re.match(r'^[+\-x\/]?y', value):
                     value = list(value)
                     value.insert(value.index('y'), '1')
-
+                    lado_esquerdo_valores[i] = ''.join(value)
             #ISOLANDO AS VARIÁVEIS NO LADO ESQUERDO
             for value in lado_direito_valores: #Para cada valor no lado direito, se tiver y, vamos guardá-lo e tirá-lo do lado direito
                 if 'y' in value:
